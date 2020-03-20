@@ -1,15 +1,44 @@
-import React from "react";
-import { GlobalStyles, Layout } from "./components";
+import React, { useEffect, useContext } from "react";
+import axios from "axios";
+import {
+  GlobalStyles,
+  Sidebar,
+  Main,
+  SearchForm,
+  FilterBox,
+  AddForm,
+  TodoList,
+} from "./components";
+import { API_URL } from "../.config";
+import { store } from './store';
 
 const App = () => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  useEffect(() => {
+    fetchTotal();
+  }, [])
+
+  const fetchTotal = async () => {
+    const result = await axios.get(`${API_URL}/tasks`);
+    dispatch({
+      type: "UPDATE_TODO",
+      tasks: result.data.tasks,
+    })
+  }
+
   return (
     <>
       <GlobalStyles />
-      <Layout>
-        <div>todo 1</div>
-        <div>todo 2</div>
-        <div>todo 3</div>
-      </Layout>
+      <Sidebar>
+        <SearchForm />
+        <FilterBox />
+      </Sidebar>
+      <Main>
+        <AddForm />
+        <TodoList />
+      </Main>
     </>
   );
 };
