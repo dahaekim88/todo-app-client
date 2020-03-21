@@ -41,7 +41,7 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
-  input[type=submit], input[type=checkbox] {
+  input[type=submit], input[type=checkbox], input[type=button] {
     cursor: pointer;
   }
 

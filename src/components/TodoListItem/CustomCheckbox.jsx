@@ -65,7 +65,22 @@ const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
 
   const handleChecked = async (e) => {
     const checked = e.target.checked;
-    updateComplete(id, checked);
+    if (subtask.length) {
+      const isAllCompleted = subtask.reduce((isCompleted, task) => {
+        isCompleted = isCompleted && task.is_completed;
+        return isCompleted;
+      }, true);
+      if (isAllCompleted) {
+        updateComplete(id, checked);
+      }
+    } else {
+      if (parent_id !== null && !checked) {
+        updateComplete(parent_id, checked);
+        updateComplete(id, checked);
+      } else {
+        updateComplete(id, checked);
+      }
+    }
   }
 
   return (

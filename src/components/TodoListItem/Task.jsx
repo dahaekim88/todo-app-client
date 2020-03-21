@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Message } from "../styled";
 import { API_URL } from "../../../.config";
 import useForm from "../../hooks/useForm";
+import Subtask from "./Subtask";
 
 const Column = styled.div`
   width: 50%;
@@ -54,6 +55,10 @@ const Task = ({ id, title, is_completed, subtask }) => {
         onKeyDown={handleKeydown}
       />
       { !!error ? <Message>{error}</Message> : null }
+      <Subtask
+        id={id}
+        subtask={subtask}
+      />
     </Column>
   )
 }

@@ -12,7 +12,7 @@ const useForm = (callback) => {
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
     if (!value) {
-      setError("Please fill this in!");
+      setError("내용을 입력해주세요!");
       return;
     }
     resetError();
@@ -36,6 +36,7 @@ const useForm = (callback) => {
     value,
     setValue,
     resetInput,
+    resetError,
     handleChange,
     handleSubmit,
     handleKeydown,
