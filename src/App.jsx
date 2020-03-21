@@ -22,9 +22,11 @@ const App = () => {
 
   const fetchTotal = async () => {
     const result = await axios.get(`${API_URL}/tasks`);
+    const { tasks, totalCounts } = result.data;
     dispatch({
-      type: "UPDATE_TODO",
-      tasks: result.data.tasks,
+      type: "UPDATE_TOTAL",
+      totalCounts,
+      tasks,
     })
   }
 

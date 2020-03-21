@@ -12,6 +12,12 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "UPDATE_TOTAL":
+      return {
+        ...state,
+        totalCounts: action.totalCounts,
+        tasks: action.tasks,
+      };
     case "UPDATE_TODO":
       return {
         ...state,

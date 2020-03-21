@@ -52,9 +52,10 @@ const AddForm = () => {
       const result = await axios.post(`${API_URL}/tasks`, {
         title: value,
       })
-      const { tasks } = result.data;
+      const { tasks, totalCounts } = result.data;
       dispatch({
-        type: "UPDATE_TODO",
+        type: "UPDATE_TOTAL",
+        totalCounts,
         tasks,
       });
       resetInput();

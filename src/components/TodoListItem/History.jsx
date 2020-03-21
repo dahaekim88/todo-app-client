@@ -66,9 +66,10 @@ const History = ({ id, created_date, updated_date, due_date }) => {
         id,
         due_date: value,
       });
-      const { tasks } = result.data;
+      const { tasks, totalCounts } = result.data;
       dispatch({
-        type: "UPDATE_TODO",
+        type: "UPDATE_TOTAL",
+        totalCounts,
         tasks,
       });
     } catch (err) {

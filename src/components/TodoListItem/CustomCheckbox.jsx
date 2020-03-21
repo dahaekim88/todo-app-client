@@ -53,9 +53,10 @@ const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
         id,
         is_completed: checked,
       });
-      const { tasks } = result.data;
+      const { tasks, totalCounts } = result.data;
       dispatch({
-        type: "UPDATE_TODO",
+        type: "UPDATE_TOTAL",
+        totalCounts,
         tasks,
       });
     } catch (err) {

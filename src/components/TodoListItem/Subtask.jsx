@@ -70,9 +70,10 @@ const Subtask = ({ id, subtask }) => {
         title: value,
         parent_id: id,
       });
-      const { tasks } = result.data;
+      const { tasks, totalCounts } = result.data;
       dispatch({
-        type: "UPDATE_TODO",
+        type: "UPDATE_TOTAL",
+        totalCounts,
         tasks,
       })
       resetInput();

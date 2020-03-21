@@ -32,9 +32,10 @@ const DeleteBtn = ({ id }) => {
   const deleteTodo = async () => {
     try {
       const result = await axios.delete(`${API_URL}/tasks/${id}`);
-      const { tasks } = result.data;
+      const { tasks, totalCounts } = result.data;
       dispatch({
-        type: "UPDATE_TODO",
+        type: "UPDATE_TOTAL",
+        totalCounts,
         tasks,
       });
     } catch (err) {

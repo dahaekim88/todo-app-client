@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { store } from "../store";
+import { API_URL } from "../../.config";
 
 const Container = styled.div`
   display: flex;
@@ -45,24 +47,37 @@ const Number = styled.div`
 
 const FilterBox = () => {
   const globalState = useContext(store);
-  const { state } = globalState;
+  const { state, dispatch } = globalState;
   const { totalCounts } = state;
+
+  const filterTodos = async (queryString) => {
+    try {
+      const result = await axios.get(`${API_URL}/tasks/filter/${queryString}`);
+      const { tasks } = result.data;
+      dispatch({
+        type: "UPDATE_TODO",
+        tasks,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <Container>
-      <Filter>
+      <Filter onClick={() => {filterTodos("all")}}>
         <Label>All</Label>
         <Number>{totalCounts.all}</Number>
       </Filter>
-      <Filter>
+      <Filter onClick={() => {filterTodos("today")}}>
         <Label>Due Today</Label>
         <Number>{totalCounts.today}</Number>
       </Filter>
-      <Filter>
+      <Filter onClick={() => {filterTodos("complete")}}>
         <Label>Done</Label>
         <Number>{totalCounts.complete}</Number>
       </Filter>
-      <Filter>
+      <Filter onClick={() => {filterTodos("incomplete")}}>
         <Label>To be done</Label>
         <Number>{totalCounts.incomplete}</Number>
       </Filter>
