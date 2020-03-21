@@ -5,6 +5,7 @@ import SearchForm from "./SearchForm";
 import FilterBox from "./FilterBox";
 import AddForm from "./AddForm";
 import TodoList from "./TodoList";
+import Pagination from "./Pagination";
 
 export {
   GlobalStyles,
@@ -14,4 +15,5 @@ export {
   FilterBox,
   AddForm,
   TodoList,
+  Pagination,
 };

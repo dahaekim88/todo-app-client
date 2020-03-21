@@ -46,7 +46,8 @@ const SubtaskBtn = styled.input.attrs({
 
 const Subtask = ({ id, subtask }) => {
   const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { state, dispatch } = globalState;
+  const { pageNum } = state;
   const [button, setButton] = useState("참조항목 추가");
   const [isEditing, setEditing] = useState(false);
 
@@ -56,7 +57,7 @@ const Subtask = ({ id, subtask }) => {
     if (isEditing) {
       inputRef.current.focus();
     }
-  }, [isEditing])
+  }, [isEditing]);
 
   const toggleEditing = () => {
     setEditing(!isEditing);
@@ -69,10 +70,14 @@ const Subtask = ({ id, subtask }) => {
       const result = await axios.post(`${API_URL}/tasks/sub`, {
         title: value,
         parent_id: id,
+        pageNum,
       });
-      const { tasks, totalCounts } = result.data;
+      const { count, totalCounts, tasks } = result.data;
       dispatch({
         type: "UPDATE_TOTAL",
+        current: {
+          count,
+        },
         totalCounts,
         tasks,
       })
@@ -83,7 +88,7 @@ const Subtask = ({ id, subtask }) => {
     }
   }
 
-  const { value, error, resetInput, resetError, handleChange, handleKeydown } = useForm(addSubtask);
+  const { value, error, resetInput, resetError, handleChange, handleKeyUp } = useForm(addSubtask);
 
   return (
     <Container>
@@ -96,7 +101,7 @@ const Subtask = ({ id, subtask }) => {
         value={value}
         ref={inputRef}
         onChange={handleChange}
-        onKeyDown={handleKeydown}
+        onKeyUp={handleKeyUp}
       />}
       <SubtaskBtn
         value={button}

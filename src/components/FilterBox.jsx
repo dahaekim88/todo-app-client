@@ -22,6 +22,7 @@ const Filter = styled.div`
   text-align: center;
   cursor: pointer;
   background-color: #293742;
+  border-radius: 6px;
   &:hover {
     transform: scale(1.05);
     transition: transform 250ms ease-in-out;
@@ -52,10 +53,16 @@ const FilterBox = () => {
 
   const filterTodos = async (queryString) => {
     try {
-      const result = await axios.get(`${API_URL}/tasks/filter/${queryString}`);
-      const { tasks } = result.data;
+      const result = await axios.get(`${API_URL}/tasks/filter/${queryString}/1`);
+      const { tasks, count } = result.data;
       dispatch({
-        type: "UPDATE_TODO",
+        type: "UPDATE_CURRENT",
+        pageNum: 1,
+        current: {
+          page: (queryString === "all") ? queryString : "filter",
+          count,
+          queryString,
+        },
         tasks,
       });
     } catch (err) {

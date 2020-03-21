@@ -8,6 +8,9 @@ import Subtask from "./Subtask";
 
 const Column = styled.div`
   width: 50%;
+  @media screen and (max-width: 600px) {
+    margin-left: 4%;
+  }
 `;
 
 const Title = styled.input.attrs({
@@ -37,7 +40,7 @@ const Task = ({ id, title, is_completed, subtask }) => {
     }
   }
 
-  const { value, error, handleChange, handleKeydown } = useForm(updateTodo);
+  const { value, error, handleChange, handleKeyUp } = useForm(updateTodo);
 
   useEffect(() => {
     if (error) {
@@ -53,7 +56,7 @@ const Task = ({ id, title, is_completed, subtask }) => {
         defaultValue={task}
         isCompleted={is_completed}
         onChange={handleChange}
-        onKeyDown={handleKeydown}
+        onKeyUp={handleKeyUp}
       />
       { !!error ? <Message>{error}</Message> : null }
       <Subtask

@@ -32,10 +32,16 @@ const SearchForm = ({ fetchTotal }) => {
 
   const searchTodo = async (queryString) => {
     try {
-      const result = await axios.get(`${API_URL}/tasks/search/${queryString}`);
-      const { tasks } = result.data;
+      const result = await axios.get(`${API_URL}/tasks/search/${queryString}/1`);
+      const { tasks, count } = result.data;
       dispatch({
-        type: "UPDATE_TODO",
+        type: "UPDATE_CURRENT",
+        pageNum: 1,
+        current: {
+          page: "search",
+          count,
+          queryString,
+        },
         tasks,
       });
     } catch (err) {

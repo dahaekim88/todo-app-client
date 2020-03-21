@@ -58,17 +58,25 @@ const DueDateInput = styled.input.attrs({
 
 const History = ({ id, created_date, updated_date, due_date }) => {
   const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { state, dispatch } = globalState;
+  const { pageNum } = state;
+  const { page, queryString } = state.current;
 
-  const updateDuedate = async (value) => {
+  const updateDuedate = async(value) => {
     try {
       const result = await axios.patch(`${API_URL}/tasks/duedate`, {
         id,
         due_date: value,
+        pageNum,
+        page,
+        queryString,
       });
-      const { tasks, totalCounts } = result.data;
+      const { tasks, totalCounts, count } = result.data;
       dispatch({
         type: "UPDATE_TOTAL",
+        current: {
+          count,
+        },
         totalCounts,
         tasks,
       });

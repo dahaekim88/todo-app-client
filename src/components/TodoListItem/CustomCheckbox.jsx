@@ -45,17 +45,25 @@ const Label = styled.label`
 
 const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
   const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { state, dispatch } = globalState;
+  const { pageNum } = state;
+  const { page, queryString } = state.current;
 
   const updateComplete = async (id, checked) => {
     try {
       const result = await axios.patch(`${API_URL}/tasks/complete`, {
         id,
         is_completed: checked,
+        pageNum,
+        page,
+        queryString,
       });
-      const { tasks, totalCounts } = result.data;
+      const { tasks, totalCounts, count } = result.data;
       dispatch({
         type: "UPDATE_TOTAL",
+        current: {
+          count,
+        },
         totalCounts,
         tasks,
       });

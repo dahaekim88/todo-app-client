@@ -27,14 +27,25 @@ const Button = styled.div`
 `
 const DeleteBtn = ({ id }) => {
   const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { state, dispatch } = globalState;
+  const { pageNum } = state;
+  const { page, queryString } = state.current;
 
   const deleteTodo = async () => {
     try {
-      const result = await axios.delete(`${API_URL}/tasks/${id}`);
-      const { tasks, totalCounts } = result.data;
+      const result = await axios.delete(`${API_URL}/tasks/${id}`, {
+        data: {
+          pageNum,
+          page,
+          queryString,
+        }
+      });
+      const { tasks, totalCounts, count } = result.data;
       dispatch({
         type: "UPDATE_TOTAL",
+        current: {
+          count,
+        },
         totalCounts,
         tasks,
       });

@@ -26,7 +26,7 @@ const TodoList = () => {
           )
         })
         :
-        <Message>Please add your tasks to do :)</Message>
+        <Message>No results...</Message>
       }
     </>
   )

@@ -54,7 +54,7 @@ const AddForm = () => {
       })
       const { tasks, totalCounts } = result.data;
       dispatch({
-        type: "UPDATE_TOTAL",
+        type: "ADD_TODO",
         totalCounts,
         tasks,
       });
@@ -64,7 +64,7 @@ const AddForm = () => {
     }
   }
 
-  const { value, error, resetInput, handleChange, handleKeydown, handleSubmit } = useForm(addTodo);
+  const { value, error, resetInput, resetError, handleChange, handleKeyUp, handleSubmit } = useForm(addTodo);
 
   return (
     <>
@@ -74,7 +74,8 @@ const AddForm = () => {
           value={value}
           placeholder="todo item..."
           onChange={handleChange}
-          onKeyDown={handleKeydown}
+          onKeyUp={handleKeyUp}
+          onFocus={resetError}
         />
         <StyledSubmit />
       </StyledForm>
