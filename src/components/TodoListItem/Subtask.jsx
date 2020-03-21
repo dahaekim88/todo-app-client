@@ -84,7 +84,7 @@ const Subtask = ({ id, subtask }) => {
       resetInput();
       toggleEditing();
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "ERROR", error: err });
     }
   }
 

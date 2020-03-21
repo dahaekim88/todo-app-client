@@ -45,7 +45,7 @@ const SearchForm = ({ fetchTotal }) => {
         tasks,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "ERROR", error: err });
     }
   }
 

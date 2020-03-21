@@ -36,7 +36,7 @@ const Task = ({ id, title, is_completed, subtask }) => {
       });
       setTask(result.data.task.title);
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "ERROR", error: err });
     }
   }
 

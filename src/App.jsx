@@ -25,47 +25,53 @@ const App = () => {
   }, [pageNum]);
 
   const fetchTotal = async () => {
-    const result = await axios.get(`${API_URL}/tasks/${pageNum}`);
-    dispatch({
-      type: "UPDATE_ALL",
-      current: {
-        page: "all",
-        count: result.data.count,
-      },
-      totalCounts: result.data.totalCounts,
-      tasks: result.data.tasks,
-    })
+    dispatch({ type: "LOADING" });
+    try {
+      const result = await axios.get(`${API_URL}/tasks/${pageNum}`);
+      dispatch({
+        type: "UPDATE_ALL",
+        current: {
+          page: "all",
+          count: result.data.count,
+        },
+        totalCounts: result.data.totalCounts,
+        tasks: result.data.tasks,
+      });
+    } catch (err) {
+      dispatch({ type: "ERROR", error: err });
+    }
   }
 
   const fetchCurrent = async (page) => {
-    const result = await axios.get(`${API_URL}/tasks/${page}/${queryString}/${pageNum}`);
-    const { count, tasks } = result.data;
-    dispatch({
-      type: "UPDATE_CURRENT",
-      pageNum,
-      current: {
-        page: (page === "search") ? page : (queryString === "all") ? queryString : "filter", 
-        count,
-        queryString,
-      },
-      tasks,
-    });
+    dispatch({ type: "LOADING" });
+    try {
+      const result = await axios.get(`${API_URL}/tasks/${page}/${queryString}/${pageNum}`);
+      const { count, tasks } = result.data;
+      dispatch({
+        type: "UPDATE_CURRENT",
+        pageNum,
+        current: {
+          page: (page === "search") ? page : (queryString === "all") ? queryString : "filter",
+          count,
+          queryString,
+        },
+        tasks,
+      });
+    } catch (err) {
+      dispatch({ type: "ERROR", error: err });
+    }
   }
 
   const updateCurrentPage = async (page) => {
-    try {
-      switch (page) {
-        case "search":
-          fetchCurrent(page);
-          break;
-        case "filter":
-          fetchCurrent(page);
-          break;
-        default:
-          fetchTotal();
-      }
-    } catch (err) {
-      console.log(err);
+    switch (page) {
+      case "search":
+        fetchCurrent(page);
+        break;
+      case "filter":
+        fetchCurrent(page);
+        break;
+      default:
+        fetchTotal();
     }
   }
 

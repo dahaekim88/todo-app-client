@@ -62,7 +62,7 @@ const History = ({ id, created_date, updated_date, due_date }) => {
   const { pageNum } = state;
   const { page, queryString } = state.current;
 
-  const updateDuedate = async(value) => {
+  const updateDuedate = async (value) => {
     try {
       const result = await axios.patch(`${API_URL}/tasks/duedate`, {
         id,
@@ -81,7 +81,7 @@ const History = ({ id, created_date, updated_date, due_date }) => {
         tasks,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "ERROR", error: err });
     }
   }
 

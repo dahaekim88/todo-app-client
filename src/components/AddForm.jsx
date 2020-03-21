@@ -60,7 +60,7 @@ const AddForm = () => {
       });
       resetInput();
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "ERROR", error: err });
     }
   }
 

@@ -51,7 +51,7 @@ const DeleteBtn = ({ id }) => {
         tasks,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "ERROR", error: err });
     }
   }
 

@@ -2,31 +2,42 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoListItem";
 import { store } from "../store";
+import { Loader } from "./styled";
 
 const Message = styled.div`
   text-align: center;
   margin: 10%;
+  color: ${prop => prop.color}
 `;
 
 const TodoList = () => {
   const globalState = useContext(store);
   const { state } = globalState;
-  const { tasks } = state;
+  const { tasks, loading, error } = state;
+  const { page } = state.current;
 
   return (
     <>
-      {!!tasks.length
+      {loading
         ?
-        tasks.map((task) => {
-          return (
-            <TodoItem
-              key={`todo-${task.id}`}
-              task={task}
-            />
-          )
-        })
+        <Loader><div></div></Loader>
         :
-        <Message>No results...</Message>
+        error 
+          ?
+          <Message color="#f5498b">에러가 발생하였습니다.</Message>
+          :
+          !!tasks.length
+            ?
+            tasks.map((task) => {
+              return (
+                <TodoItem
+                  key={`todo-${task.id}`}
+                  task={task}
+                />
+              )
+            })
+            :
+            (page === "search" && <Message>No results...</Message>)
       }
     </>
   )

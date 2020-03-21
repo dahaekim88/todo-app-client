@@ -14,18 +14,32 @@ const initialState = {
     incomplete: 0,
   },
   tasks: [],
+  loading: false,
+  error: null,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "LOADING":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     case "PAGINATION":
       return {
         ...state,
         pageNum: action.pageNum,
       };
-    case "UPDATE_ALL": // 렌더링 처음 fetch 할 때
+    case "UPDATE_ALL":
       return {
         ...state,
+        loading: false,
         current: {
           ...state.current,
           page: action.current.page,
@@ -34,7 +48,7 @@ const reducer = (state, action) => {
         totalCounts: action.totalCounts,
         tasks: action.tasks,
       };
-    case "UPDATE_CURRENT": // search & filter
+    case "UPDATE_CURRENT":
       return {
         ...state,
         pageNum: action.pageNum,
@@ -54,11 +68,6 @@ const reducer = (state, action) => {
           count: action.current.count,
         },
         totalCounts: action.totalCounts,
-        tasks: action.tasks,
-      };
-    case "UPDATE_TODO":
-      return {
-        ...state,
         tasks: action.tasks,
       };
     case "ADD_TODO":
