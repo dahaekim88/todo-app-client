@@ -46,7 +46,7 @@ const reducer = (state, action) => {
         },
         tasks: action.tasks,
       };
-    case "UPDATE_TOTAL": // list 수정 - update & delete
+    case "UPDATE_TOTAL":
       return {
         ...state,
         current: {
@@ -72,6 +72,17 @@ const reducer = (state, action) => {
         totalCounts: action.totalCounts,
         tasks: action.tasks,
       }
+    case "DELETE_TODO":
+      return {
+        ...state,
+        pageNum: action.pageNum,
+        current: {
+          ...state.current,
+          count: action.current.count,
+        },
+        totalCounts: action.totalCounts,
+        tasks: action.tasks,
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

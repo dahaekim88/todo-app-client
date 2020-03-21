@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { store } from "../store";
@@ -23,7 +23,7 @@ const Filter = styled.div`
   cursor: pointer;
   background-color: #293742;
   border-radius: 6px;
-  &:hover {
+  &:hover, &.active {
     transform: scale(1.05);
     transition: transform 250ms ease-in-out;
   }
@@ -50,6 +50,7 @@ const FilterBox = () => {
   const globalState = useContext(store);
   const { state, dispatch } = globalState;
   const { totalCounts } = state;
+  const [active, setActive] = useState("");
 
   const filterTodos = async (queryString) => {
     try {
@@ -70,21 +71,43 @@ const FilterBox = () => {
     }
   }
 
+  const handleClick = (e) => {
+    const filterId = e.currentTarget.id;
+    setActive(filterId);
+    filterTodos(filterId);
+  }
+
   return (
     <Container>
-      <Filter onClick={() => {filterTodos("all")}}>
+      <Filter
+        id="all"
+        className={active === "all" ? "active" : ""}
+        onClick={handleClick}
+      >
         <Label>All</Label>
         <Number>{totalCounts.all}</Number>
       </Filter>
-      <Filter onClick={() => {filterTodos("today")}}>
+      <Filter
+        id="today"
+        className={active === "today" ? "active" : ""}
+        onClick={handleClick}
+      >
         <Label>Due Today</Label>
         <Number>{totalCounts.today}</Number>
       </Filter>
-      <Filter onClick={() => {filterTodos("complete")}}>
+      <Filter
+        id="complete"
+        className={active === "complete" ? "active" : ""}
+        onClick={handleClick}
+      >
         <Label>Done</Label>
         <Number>{totalCounts.complete}</Number>
       </Filter>
-      <Filter onClick={() => {filterTodos("incomplete")}}>
+      <Filter
+        id="incomplete"
+        className={active === "incomplete" ? "active" : ""}
+        onClick={handleClick}
+      >
         <Label>To be done</Label>
         <Number>{totalCounts.incomplete}</Number>
       </Filter>

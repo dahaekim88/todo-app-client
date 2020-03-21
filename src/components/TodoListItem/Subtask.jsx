@@ -88,7 +88,7 @@ const Subtask = ({ id, subtask }) => {
     }
   }
 
-  const { value, error, resetInput, resetError, handleChange, handleKeyUp } = useForm(addSubtask);
+  const { value, error, resetInput, resetError, handleChange, handleKeyPress } = useForm(addSubtask);
 
   return (
     <Container>
@@ -101,7 +101,7 @@ const Subtask = ({ id, subtask }) => {
         value={value}
         ref={inputRef}
         onChange={handleChange}
-        onKeyUp={handleKeyUp}
+        onKeyPress={handleKeyPress}
       />}
       <SubtaskBtn
         value={button}

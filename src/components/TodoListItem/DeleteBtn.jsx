@@ -42,7 +42,8 @@ const DeleteBtn = ({ id }) => {
       });
       const { tasks, totalCounts, count } = result.data;
       dispatch({
-        type: "UPDATE_TOTAL",
+        type: "DELETE_TODO",
+        pageNum: result.data.pageNum,
         current: {
           count,
         },

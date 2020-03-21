@@ -40,7 +40,7 @@ const Task = ({ id, title, is_completed, subtask }) => {
     }
   }
 
-  const { value, error, handleChange, handleKeyUp } = useForm(updateTodo);
+  const { value, error, handleChange, handleKeyPress } = useForm(updateTodo);
 
   useEffect(() => {
     if (error) {
@@ -56,7 +56,7 @@ const Task = ({ id, title, is_completed, subtask }) => {
         defaultValue={task}
         isCompleted={is_completed}
         onChange={handleChange}
-        onKeyUp={handleKeyUp}
+        onKeyPress={handleKeyPress}
       />
       { !!error ? <Message>{error}</Message> : null }
       <Subtask

@@ -19,7 +19,7 @@ const useForm = (callback) => {
     callback();
   }
 
-  const handleKeyUp = (e) => {
+  const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       e.stopPropagation();
@@ -39,7 +39,7 @@ const useForm = (callback) => {
     resetError,
     handleChange,
     handleSubmit,
-    handleKeyUp,
+    handleKeyPress,
   }
 }
 

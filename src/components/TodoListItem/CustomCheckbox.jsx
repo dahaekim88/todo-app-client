@@ -95,7 +95,7 @@ const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
   return (
     <Column>
       <Container checked={checked}>
-        <Checkbox id={`todo-${id}`} defaultChecked={checked} onChange={handleChecked} />
+        <Checkbox id={`todo-${id}`} checked={checked} onChange={handleChecked} />
         <Label htmlFor={`todo-${id}`} checked={checked} >
           <Icon viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12" />

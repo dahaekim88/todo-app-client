@@ -64,7 +64,7 @@ const AddForm = () => {
     }
   }
 
-  const { value, error, resetInput, resetError, handleChange, handleKeyUp, handleSubmit } = useForm(addTodo);
+  const { value, error, resetInput, resetError, handleChange, handleKeyPress, handleSubmit } = useForm(addTodo);
 
   return (
     <>
@@ -74,7 +74,7 @@ const AddForm = () => {
           value={value}
           placeholder="todo item..."
           onChange={handleChange}
-          onKeyUp={handleKeyUp}
+          onKeyPress={handleKeyPress}
           onFocus={resetError}
         />
         <StyledSubmit />
