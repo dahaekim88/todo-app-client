@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { API_URL } from "../../../.config";
+import { store } from "../../store";
 
 const Column = styled.div`
   width: 5%;
@@ -40,11 +43,35 @@ const Label = styled.label`
   }
 `;
 
-const CustomCheckbox = ({ id, checked }) => {
+const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  const updateComplete = async (id, checked) => {
+    try {
+      const result = await axios.patch(`${API_URL}/tasks/complete`, {
+        id,
+        is_completed: checked,
+      });
+      const { tasks } = result.data;
+      dispatch({
+        type: "UPDATE_TODO",
+        tasks,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleChecked = async (e) => {
+    const checked = e.target.checked;
+    updateComplete(id, checked);
+  }
+
   return (
     <Column>
       <Container checked={checked}>
-        <Checkbox id={`todo-${id}`} defaultChecked={checked} />
+        <Checkbox id={`todo-${id}`} defaultChecked={checked} onChange={handleChecked} />
         <Label htmlFor={`todo-${id}`} checked={checked} >
           <Icon viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12" />

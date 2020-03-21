@@ -44,6 +44,10 @@ export const GlobalStyles = createGlobalStyle`
   input[type=submit], input[type=checkbox] {
     cursor: pointer;
   }
+
+  .bp3-dark {
+    background-color: ${darker};
+  }
 `;
 
 export const Message = styled.div`

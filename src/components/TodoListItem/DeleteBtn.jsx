@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { API_URL } from "../../../.config";
+import { store } from "../../store";
 
 const Column = styled.div`
   width: 10%;
@@ -22,10 +25,26 @@ const Button = styled.div`
     }
   }
 `
-const DeleteBtn = () => {
+const DeleteBtn = ({ id }) => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  const deleteTodo = async () => {
+    try {
+      const result = await axios.delete(`${API_URL}/tasks/${id}`);
+      const { tasks } = result.data;
+      dispatch({
+        type: "UPDATE_TODO",
+        tasks,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <Column>
-      <Button />
+      <Button onClick={deleteTodo} />
     </Column>
   )
 }
