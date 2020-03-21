@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { store } from "../store";
+import { API_URL } from "../../.config";
+import useDebounce from "../hooks/useDebounce";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -19,13 +23,46 @@ const StyledInput = styled.input.attrs({ type: "search" })`
   }
 `;
 
-const SearchForm = () => {
+const SearchForm = ({ fetchTotal }) => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  const searchTodo = async (queryString) => {
+    try {
+      const result = await axios.get(`${API_URL}/tasks/search/${queryString}`);
+      const { tasks } = result.data;
+      dispatch({
+        type: "UPDATE_TODO",
+        tasks,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const isFirstRun = useRef(true);
+  useEffect(
+    () => {
+      if (isFirstRun.current) {
+        isFirstRun.current = false;
+      } else {
+        if (debouncedSearchQuery) {
+          searchTodo(debouncedSearchQuery);
+        } else {
+          fetchTotal();
+        }
+      }
+    },
+    [debouncedSearchQuery]
+  );
 
   return (
     <StyledForm onSubmit={(e) => e.preventDefault()}>
       <StyledInput
-        name="todo"
+        name="search"
         placeholder="search..."
         onChange={(e) => setSearchQuery(e.target.value)}
       />

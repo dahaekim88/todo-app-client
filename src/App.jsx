@@ -34,7 +34,9 @@ const App = () => {
     <>
       <GlobalStyles />
       <Sidebar>
-        <SearchForm />
+        <SearchForm
+          fetchTotal={fetchTotal}
+        />
         <FilterBox />
       </Sidebar>
       <Main>
