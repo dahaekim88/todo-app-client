@@ -13,7 +13,7 @@ const Container = styled.div`
   border-radius: 8px;
   background-color: #293742;
   margin: 2% 0;
-  padding: 2%;
+  padding: 1% 2%;
   position: relative;
   @media screen and (max-width: 600px) {
     padding: 4%;

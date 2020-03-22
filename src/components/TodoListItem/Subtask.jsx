@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const SubtaskTitle = styled.span`
-  margin-left: 2%;
+  margin-left: 1%;
   font-size: 0.8em;
 `;
 
@@ -24,8 +24,8 @@ const SubtaskInput = styled.input.attrs({
   outline: none;
   border-bottom: 1px solid #137cbd !important;
   display: block;
-  margin-left: 2%;
-  padding: 1% 2% !important;
+  margin-left: 1%;
+  padding: 1%;
   width: 100px;
   &::placeholder {
     text-decoration: underline;
@@ -35,13 +35,16 @@ const SubtaskInput = styled.input.attrs({
 const SubtaskBtn = styled.input.attrs({
   type: "button",
 })`
-  margin-left: 2%;
+  margin-left: 1%;
   color: #c274c2;
   background-color: rgba(16,22,26,.3);
   padding: 1%;
   outline: none;
   border: none;
   border-radius: 6px;
+  @media screen and (max-width: 600px) {
+    padding: 3%;
+  }
 `;
 
 const Subtask = ({ id, subtask }) => {
@@ -109,7 +112,7 @@ const Subtask = ({ id, subtask }) => {
           toggleEditing();
         }}
       />
-      { !!error ? <Message>{error}</Message> : null }
+      { !!error ? <Message className="font-small">{error}</Message> : null }
     </Container>
   )
 }

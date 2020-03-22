@@ -24,14 +24,12 @@ export const GlobalStyles = createGlobalStyle`
 
   input[type=text], input[type=search] {
     display: inline-block;
-    padding: 2%;
     background: ${darker};
     color: ${light};
     font-size: 1em;
     outline: none;
     border: none;
     @media screen and (max-width: 600px) {
-      font-size: 0.8em;
       padding: 4%;
     }
     &:focus {
@@ -43,17 +41,59 @@ export const GlobalStyles = createGlobalStyle`
 
   input[type=submit], input[type=checkbox], input[type=button] {
     cursor: pointer;
+    -webkit-appearnce: none;
+  }
+
+  input[type=file] {
+    display: none;
   }
 
   .bp3-dark {
     background-color: ${darker};
   }
+
+  .excel-btn {
+    width: 48%;
+    margin: 1% 0;
+    padding: 4% 0;
+    text-align: center;
+    cursor: pointer;
+    background-color: #293742;
+    border-radius: 6px;
+    color: #a7b6c2;
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 250ms ease-in-out;
+    }
+    &:before {
+      font-family: "Font Awesome 5 Free";
+      content: "\f1c3";
+      font-size: 1em;
+      margin-right: 4%;
+      color: #3dcc91;
+    }
+    @media screen and (max-width: 600px) {
+      transform: scale(1);
+    }
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .font-small {
+    font-size: 0.8em;
+  }
 `;
 
 export const Message = styled.div`
+  width: 100%;
   margin: 1% 0 0 2%;
   color: ${error};
   font-size: 1em;
+  @media screen and (max-width: 600px) {
+    font-size: 0.8em;
+  }
 `;
 
 export const Loader = styled.div`

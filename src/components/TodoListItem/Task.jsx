@@ -19,6 +19,7 @@ const Title = styled.input.attrs({
   text-decoration: ${({ isCompleted }) => isCompleted ? "line-through" : "none"};
   margin-bottom: 2px;
   font-size: 1.2em !important;
+  padding: 1%;
   &:focus {
     border-bottom: 1px solid #137cbd;
   }
@@ -58,7 +59,7 @@ const Task = ({ id, title, is_completed, subtask }) => {
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
-      { !!error ? <Message>{error}</Message> : null }
+      { !!error ? <Message className="font-small">{error}</Message> : null }
       <Subtask
         id={id}
         subtask={subtask}

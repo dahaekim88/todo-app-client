@@ -14,7 +14,6 @@ const TodoList = () => {
   const globalState = useContext(store);
   const { state } = globalState;
   const { tasks, loading, error } = state;
-  const { page } = state.current;
 
   return (
     <>
@@ -37,7 +36,7 @@ const TodoList = () => {
               )
             })
             :
-            (page === "search" && <Message>No results...</Message>)
+            <Message>No results...</Message>
       }
     </>
   )

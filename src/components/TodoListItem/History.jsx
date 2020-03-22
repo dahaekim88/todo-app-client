@@ -50,10 +50,11 @@ const DateContainer = styled.div`
   }
 `;
 
-const DueDateInput = styled.input.attrs({
+const Input = styled.input.attrs({
   type: "text",
 })`
   width: 100px;
+  padding: 1% 2%;
 `;
 
 const History = ({ id, created_date, updated_date, due_date }) => {
@@ -88,13 +89,13 @@ const History = ({ id, created_date, updated_date, due_date }) => {
   return (
     <Column>
       <DateContainer>작성일:
-        <DueDateInput
+        <Input
           defaultValue={created_date}
           disabled
         />
       </DateContainer>
       <DateContainer>수정일:
-        <DueDateInput
+        <Input
           defaultValue={updated_date}
           disabled
         />

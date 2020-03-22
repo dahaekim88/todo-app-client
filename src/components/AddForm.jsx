@@ -16,6 +16,7 @@ const StyledInput = styled.input.attrs({ type: "text" })`
   width: 80%;
   background-color: rgba(16,22,26,.3) !important;
   border-radius: 6px;
+  padding: 2%;
   &:focus {
     box-shadow: 0 0 0 1px #137cbd, 
       0 0 0 1px #137cbd, 

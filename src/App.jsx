@@ -6,6 +6,7 @@ import {
   Main,
   SearchForm,
   FilterBox,
+  ExcelBtn,
   AddForm,
   TodoList,
   Pagination,
@@ -83,6 +84,7 @@ const App = () => {
           fetchTotal={fetchTotal}
         />
         <FilterBox />
+        <ExcelBtn />
       </Sidebar>
       <Main>
         <AddForm />
