@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Message } from "../styled";
 import axios from "axios";
@@ -27,8 +27,8 @@ const SubtaskInput = styled.input.attrs({
   margin-left: 1%;
   padding: 1%;
   width: 100px;
-  &::placeholder {
-    text-decoration: underline;
+  &.error {
+    border-bottom: 1px solid #f5498b !important;
   }
 `;
 
@@ -52,23 +52,23 @@ const Subtask = ({ id, subtask }) => {
   const { state, dispatch } = globalState;
   const { pageNum } = state;
   const [button, setButton] = useState("참조항목 추가");
-  const [isEditing, setEditing] = useState(false);
-
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (isEditing) {
-      inputRef.current.focus();
-    }
-  }, [isEditing]);
+  const [isEditing, setIsEditing] = useState(false);
 
   const toggleEditing = () => {
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
     resetError();
     button === "X" ? setButton("참조항목 추가") : setButton("X");
-  };
+  }
+
+  const emptySearchInput = () => {
+    dispatch({
+      type: "SEARCH",
+      searchQuery: "",
+    });
+  }
 
   const addSubtask = async () => {
+    emptySearchInput();
     try {
       const result = await axios.post(`${API_URL}/tasks/sub`, {
         title: value,
@@ -77,7 +77,7 @@ const Subtask = ({ id, subtask }) => {
       });
       const { count, totalCounts, tasks } = result.data;
       dispatch({
-        type: "UPDATE_TOTAL",
+        type: "ADD_TODO",
         current: {
           count,
         },
@@ -91,7 +91,13 @@ const Subtask = ({ id, subtask }) => {
     }
   }
 
-  const { value, error, resetInput, resetError, handleChange, handleKeyPress } = useForm(addSubtask);
+  const { value, error, inputRef, resetInput, resetError, handleChange, handleKeyPress } = useForm(addSubtask);
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
 
   return (
     <Container>
@@ -101,16 +107,16 @@ const Subtask = ({ id, subtask }) => {
         )
       })}
       {isEditing && <SubtaskInput
-        value={value}
         ref={inputRef}
+        className={error ? "error" : ""}
+        value={value}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
+        autoComplete="off"
       />}
       <SubtaskBtn
         value={button}
-        onClick={() => {
-          toggleEditing();
-        }}
+        onClick={toggleEditing}
       />
       { !!error ? <Message className="font-small">{error}</Message> : null }
     </Container>

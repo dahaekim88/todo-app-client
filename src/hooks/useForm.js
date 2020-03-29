@@ -1,10 +1,20 @@
-import { useState, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 
-const useForm = (callback) => {
+const useForm = (callback, extraFn = () => {}) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (error) {
+      inputRef.current.focus();
+    }
+  }, [error])
   
   const handleChange = (e) => {
+    if (error) {
+      resetError();
+    }
     e.persist();
     setValue(e.target.value);
   }
@@ -17,6 +27,7 @@ const useForm = (callback) => {
     }
     resetError();
     callback();
+    extraFn();
   }
 
   const handleKeyPress = (e) => {
@@ -28,10 +39,11 @@ const useForm = (callback) => {
     }
   }
 
-  const resetInput = useCallback(() => setValue(""));
-  const resetError = useCallback(() => setError(""));
+  const resetInput = () => setValue("");
+  const resetError = () => setError(null);
 
   return {
+    inputRef,
     error,
     value,
     setValue,

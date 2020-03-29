@@ -3,7 +3,7 @@ import  FileSaver from "file-saver";
 
 export const headers = [
   {
-    header: "ID",
+    header: "No.",
     key: "id",
     width: 12,
   },

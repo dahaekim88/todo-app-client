@@ -84,7 +84,9 @@ const App = () => {
           fetchTotal={fetchTotal}
         />
         <FilterBox />
-        <ExcelBtn />
+        <ExcelBtn
+          fetchTotal={fetchTotal}
+        />
       </Sidebar>
       <Main>
         <AddForm />

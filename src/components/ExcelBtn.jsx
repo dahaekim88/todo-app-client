@@ -17,13 +17,22 @@ const Container = styled.div`
   }
 `;
 
-const ExcelBtn = () => {
+const ExcelBtn = ({ fetchTotal }) => {
   const globalState = useContext(store);
   const { dispatch } = globalState;
   const [file, setFile] = useState("");
   const inputRef = useRef(null);
 
+  const emptySearchInput = () => {
+    dispatch({
+      type: "SEARCH",
+      searchQuery: "",
+    });
+  }
+
   const exportToExcel = async () => {
+    emptySearchInput();
+    fetchTotal();
     const result = await axios.get(`${API_URL}/tasks`);
     const data = result.data.tasks.map((task, index) => {
       task.id = index + 1;
@@ -34,6 +43,8 @@ const ExcelBtn = () => {
   }
 
   const importFromExcel = async (file) => {
+    emptySearchInput();
+    dispatch({ type: "LOADING" });
     const formData = new FormData();
     formData.append("file", file);
     const result = await axios.post(`${API_URL}/tasks/import`, formData);

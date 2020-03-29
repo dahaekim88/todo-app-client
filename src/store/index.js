@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react';
 
 const initialState = {
   pageNum: 1,
+  searchQuery: "",
   current: {
     page: "",
     queryString: "",
@@ -36,10 +37,16 @@ const reducer = (state, action) => {
         ...state,
         pageNum: action.pageNum,
       };
+    case "SEARCH":
+      return {
+        ...state,
+        searchQuery: action.searchQuery,
+      }
     case "UPDATE_ALL":
       return {
         ...state,
         loading: false,
+        error: null,
         current: {
           ...state.current,
           page: action.current.page,
@@ -51,6 +58,8 @@ const reducer = (state, action) => {
     case "UPDATE_CURRENT":
       return {
         ...state,
+        loading: false,
+        error: null,
         pageNum: action.pageNum,
         current: {
           ...state.current,
@@ -63,6 +72,7 @@ const reducer = (state, action) => {
     case "UPDATE_TOTAL":
       return {
         ...state,
+        error: null,
         current: {
           ...state.current,
           count: action.current.count,
@@ -73,6 +83,7 @@ const reducer = (state, action) => {
     case "ADD_TODO":
       return {
         ...state,
+        error: null,
         current: {
           ...state.current,
           page: "all",
@@ -84,6 +95,7 @@ const reducer = (state, action) => {
     case "DELETE_TODO":
       return {
         ...state,
+        error: null,
         pageNum: action.pageNum,
         current: {
           ...state.current,

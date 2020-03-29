@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { store } from "../store";
@@ -50,7 +50,7 @@ const FilterBox = () => {
   const globalState = useContext(store);
   const { state, dispatch } = globalState;
   const { totalCounts } = state;
-  const [active, setActive] = useState("");
+  const { page, queryString } = state.current;
 
   const filterTodos = async (queryString) => {
     try {
@@ -72,8 +72,11 @@ const FilterBox = () => {
   }
 
   const handleClick = (e) => {
+    dispatch({
+      type: "SEARCH",
+      searchQuery: "",
+    });
     const filterId = e.currentTarget.id;
-    setActive(filterId);
     filterTodos(filterId);
   }
 
@@ -81,7 +84,7 @@ const FilterBox = () => {
     <Container>
       <Filter
         id="all"
-        className={active === "all" ? "active" : ""}
+        className={page === "filter" && queryString === "all" ? "active" : ""}
         onClick={handleClick}
       >
         <Label>All</Label>
@@ -89,7 +92,7 @@ const FilterBox = () => {
       </Filter>
       <Filter
         id="today"
-        className={active === "today" ? "active" : ""}
+        className={page === "filter" && queryString === "today" ? "active" : ""}
         onClick={handleClick}
       >
         <Label>Due Today</Label>
@@ -97,7 +100,7 @@ const FilterBox = () => {
       </Filter>
       <Filter
         id="complete"
-        className={active === "complete" ? "active" : ""}
+        className={page === "filter" && queryString === "complete" ? "active" : ""}
         onClick={handleClick}
       >
         <Label>Done</Label>
@@ -105,7 +108,7 @@ const FilterBox = () => {
       </Filter>
       <Filter
         id="incomplete"
-        className={active === "incomplete" ? "active" : ""}
+        className={page === "filter" && queryString === "incomplete" ? "active" : ""}
         onClick={handleClick}
       >
         <Label>To be done</Label>

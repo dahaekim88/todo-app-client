@@ -43,7 +43,7 @@ const Label = styled.label`
   }
 `;
 
-const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
+const CustomCheckbox = ({ id, checked, subtask }) => {
   const globalState = useContext(store);
   const { state, dispatch } = globalState;
   const { pageNum } = state;
@@ -68,7 +68,7 @@ const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
         tasks,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "ERROR", error: err });
     }
   }
 
@@ -83,12 +83,7 @@ const CustomCheckbox = ({ id, checked, subtask, parent_id }) => {
         updateComplete(id, checked);
       }
     } else {
-      if (parent_id !== null && !checked) {
-        updateComplete(parent_id, checked);
-        updateComplete(id, checked);
-      } else {
-        updateComplete(id, checked);
-      }
+      updateComplete(id, checked);
     }
   }
 

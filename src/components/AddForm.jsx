@@ -22,6 +22,11 @@ const StyledInput = styled.input.attrs({ type: "text" })`
       0 0 0 1px #137cbd, 
       0 0 0 3px rgba(19,124,189,.3);
   }
+  &.error {
+    box-shadow: 0 0 0 1px #f5498b, 
+      0 0 0 1px #f5498b, 
+      0 0 0 3px rgba(194,68,117,.3);
+  }
 `;
 
 const StyledSubmit = styled.input.attrs({
@@ -60,23 +65,33 @@ const AddForm = () => {
         tasks,
       });
       resetInput();
+      inputRef.current.focus();
     } catch (err) {
       dispatch({ type: "ERROR", error: err });
     }
   }
 
-  const { value, error, resetInput, resetError, handleChange, handleKeyPress, handleSubmit } = useForm(addTodo);
+  const emptySearchInput = () => {
+    dispatch({
+      type: "SEARCH",
+      searchQuery: "",
+    });
+  }
+
+  const { value, error, inputRef, resetInput, handleChange, handleKeyPress, handleSubmit } = useForm(addTodo, emptySearchInput);
 
   return (
     <>
       <StyledForm onSubmit={handleSubmit}>
         <StyledInput
+          ref={inputRef}
+          className={error ? "error" : ""}
           name="todo"
           value={value}
           placeholder="todo item..."
           onChange={handleChange}
           onKeyPress={handleKeyPress}
-          onFocus={resetError}
+          autoComplete="off"
         />
         <StyledSubmit />
       </StyledForm>

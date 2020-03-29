@@ -26,9 +26,10 @@ const StyledInput = styled.input.attrs({ type: "search" })`
 
 const SearchForm = ({ fetchTotal }) => {
   const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { state, dispatch } = globalState;
+  const { searchQuery } = state;
+  const { page } = state.current;
 
-  const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   const searchTodo = async (queryString) => {
@@ -59,7 +60,9 @@ const SearchForm = ({ fetchTotal }) => {
         if (debouncedSearchQuery) {
           searchTodo(debouncedSearchQuery);
         } else {
-          fetchTotal();
+          if (page === "search") {
+            fetchTotal();
+          }
         }
       }
     },
@@ -71,7 +74,14 @@ const SearchForm = ({ fetchTotal }) => {
       <StyledInput
         name="search"
         placeholder="search..."
-        onChange={(e) => setSearchQuery(e.target.value)}
+        value={searchQuery}
+        onChange={(e) => {
+          dispatch({
+            type: "SEARCH",
+            searchQuery: e.target.value,
+          });
+        }}
+        autoComplete="off"
       />
     </StyledForm>
   )

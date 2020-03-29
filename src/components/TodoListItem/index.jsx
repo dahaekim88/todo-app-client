@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 
 const TodoItem = ({ task }) => {
-  const { id, title, is_completed, due_date, created_date, updated_date, subtask, parent_id } = task;
+  const { id, title, is_completed, due_date, created_date, updated_date, subtask } = task;
 
   return (
     <Container>
@@ -29,7 +29,6 @@ const TodoItem = ({ task }) => {
         id={id}
         checked={is_completed ? true : false}
         subtask={subtask}
-        parent_id={parent_id}
       />
       <Task
         id={id}
