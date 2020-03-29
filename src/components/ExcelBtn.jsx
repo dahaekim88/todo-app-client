@@ -36,6 +36,10 @@ const ExcelBtn = ({ fetchTotal }) => {
     const result = await axios.get(`${API_URL}/tasks`);
     const data = result.data.tasks.map((task, index) => {
       task.id = index + 1;
+      task.subtask = task.subtask.reduce((result, task) => {
+        result += `@${task.title}`;
+        return result;
+      }, "");
       task.due_date = !task.due_date ? "-" : task.due_date;
       return task;
     })

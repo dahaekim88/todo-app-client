@@ -18,6 +18,11 @@ export const headers = [
     width: 18,
   },
   {
+    header: "Subtask",
+    key: "subtask",
+    width: 36,
+  },
+  {
     header: "Due Date",
     key: "due_date",
     width: 22,
