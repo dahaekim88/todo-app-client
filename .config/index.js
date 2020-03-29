@@ -5,7 +5,7 @@ const development = {
 }
 
 const production = {
-  API_URL: "http://localhost:5000/api",
+  API_URL: "http://13.209.97.216:5000/api",
 }
 
 const config = {
