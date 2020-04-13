@@ -7,7 +7,7 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #394b59;
+  background-color: ${props => props.theme.colors.dark};
   overflow-x: hidden;
   padding: 4% 2%;
 

@@ -21,7 +21,7 @@ const Filter = styled.div`
   padding: 4% 0;
   text-align: center;
   cursor: pointer;
-  background-color: #293742;
+  background-color: ${props => props.theme.colors.darkest};
   border-radius: 6px;
   &:hover, &.active {
     transform: scale(1.05);
@@ -36,14 +36,14 @@ const Label = styled.div`
   text-transform: uppercase;
   font-size: 0.8em;
   letter-spacing: 1px;
-  color: #a7b6c2;
+  color: ${props => props.theme.colors.grey};
 `;
 
 const Number = styled.div`
   padding-top: 1%;
   font-weight: 700;
   font-size: 1.5em;
-  color: #48aff0;
+  color: ${props => props.theme.colors.blue};
 `;
 
 const FilterBox = () => {
@@ -118,4 +118,4 @@ const FilterBox = () => {
   )
 }
 
-export default React.memo(FilterBox);
+export default FilterBox;

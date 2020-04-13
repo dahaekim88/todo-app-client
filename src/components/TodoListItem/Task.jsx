@@ -23,14 +23,14 @@ const Title = styled.input.attrs({
   padding: 1%;
   width: 100%;
   &:focus {
-    border-bottom: 1px solid #137cbd;
+    border-bottom: ${props => `1px solid ${props.theme.colors.darkblue}`};
   }
   &.error {
-    border-bottom: 1px solid #f5498b;
+    border-bottom: ${props => `1px solid ${props.theme.colors.error}`};
   }
 `;
 
-const Task = ({ id, title, is_completed, subtask }) => {
+const Task = ({ id, title, isCompleted, subtask }) => {
   const globalState = useContext(store);
   const { state, dispatch } = globalState;
   const { pageNum } = state;
@@ -47,7 +47,7 @@ const Task = ({ id, title, is_completed, subtask }) => {
       });
       const { tasks, totalCounts, count } = result.data;
       dispatch({
-        type: "UPDATE_TOTAL",
+        type: "UPDATE_TODO",
         current: {
           count,
         },
@@ -68,12 +68,12 @@ const Task = ({ id, title, is_completed, subtask }) => {
         className={error ? "error" : ""}
         name="task"
         defaultValue={title}
-        isCompleted={is_completed}
+        isCompleted={isCompleted}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
         autoComplete="off"
       />
-      { !!error ? <Message className="font-small">{error}</Message> : null }
+      {error && <Message className="font-small">{error}</Message>}
       <Subtask
         id={id}
         subtask={subtask}
@@ -82,4 +82,4 @@ const Task = ({ id, title, is_completed, subtask }) => {
   )
 }
 
-export default React.memo(Task);
+export default Task;

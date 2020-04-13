@@ -18,14 +18,10 @@ const StyledInput = styled.input.attrs({ type: "text" })`
   border-radius: 6px;
   padding: 2%;
   &:focus {
-    box-shadow: 0 0 0 1px #137cbd, 
-      0 0 0 1px #137cbd, 
-      0 0 0 3px rgba(19,124,189,.3);
+    box-shadow: ${props => props.theme.colors.shadowBlue};
   }
   &.error {
-    box-shadow: 0 0 0 1px #f5498b, 
-      0 0 0 1px #f5498b, 
-      0 0 0 3px rgba(194,68,117,.3);
+    box-shadow: ${props => props.theme.colors.shadowError};
   }
 `;
 
@@ -34,9 +30,9 @@ const StyledSubmit = styled.input.attrs({
   value: "Add",
 })`
   width: 18%;
-  background-color: #394b59;
+  background-color: ${props => props.theme.colors.dark};
   background-image: linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0)) !important;
-  color: #f5f8fa;
+  color: ${props => props.theme.colors.light};
   border: none;
   border-radius: 6px;
   text-transform: uppercase;
@@ -44,8 +40,8 @@ const StyledSubmit = styled.input.attrs({
   font-weight: 700;
   letter-spacing: 1px;
   &:hover {
-    background-color: #30404d;
-    color: #48aff0;
+    background-color: ${props => props.theme.colors.darker};
+    color: ${props => props.theme.colors.blue};
   }
 `;
 
@@ -95,9 +91,9 @@ const AddForm = () => {
         />
         <StyledSubmit />
       </StyledForm>
-      { !!error ? <Message>{error}</Message> : null }
+      {error && <Message>{error}</Message>}
     </>
   )
 }
 
-export default React.memo(AddForm);
+export default AddForm;

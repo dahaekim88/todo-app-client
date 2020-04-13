@@ -7,7 +7,7 @@ import { Loader } from "./styled";
 const Message = styled.div`
   text-align: center;
   margin: 10%;
-  color: ${prop => prop.color}
+  color: ${props => props.theme.colors.error}
 `;
 
 const TodoList = () => {
@@ -23,7 +23,7 @@ const TodoList = () => {
         :
         error 
           ?
-          <Message color="#f5498b">에러가 발생하였습니다.</Message>
+          <Message>에러가 발생하였습니다.</Message>
           :
           !!tasks.length
             ?

@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-wrap: no-wrap;
   border: none;
   border-radius: 8px;
-  background-color: #293742;
+  background-color: ${props => props.theme.colors.darkest};
   margin: 2% 0;
   padding: 1% 2%;
   position: relative;
@@ -33,14 +33,14 @@ const TodoItem = ({ task }) => {
       <Task
         id={id}
         title={title}
-        is_completed={is_completed}
+        isCompleted={is_completed}
         subtask={subtask}
       />
       <History
         id={id}
-        created_date={created_date}
-        updated_date={updated_date}
-        due_date={due_date}
+        createdDate={created_date}
+        updatedDate={updated_date}
+        dueDate={due_date}
       />
       <DeleteBtn
         id={id}

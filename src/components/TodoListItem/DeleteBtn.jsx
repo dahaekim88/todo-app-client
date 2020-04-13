@@ -17,11 +17,11 @@ const Button = styled.div`
     content: "\f2ed";
     position: absolute;
     right: 3%;
-    color: #f5f8fa;
+    color: ${props => props.theme.colors.light};
   }
   &:hover {
     &:before {
-      color: #48aff0;
+      color: ${props => props.theme.colors.blue};
     }
   }
 `
@@ -62,4 +62,4 @@ const DeleteBtn = ({ id }) => {
   )
 }
 
-export default React.memo(DeleteBtn);
+export default DeleteBtn;

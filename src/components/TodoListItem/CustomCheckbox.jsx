@@ -15,9 +15,9 @@ const Container = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  border: 3px solid ${props => (props.checked ? '#137cbd' : '#f5f8fa')};
+  border: 3px solid ${props => (props.checked ? props.theme.colors.darkblue : props.theme.colors.light)};
   border-radius: 6px;
-  background-color: ${props => (props.checked ? '#137cbd' : 'none')};
+  background-color: ${props => (props.checked ? props.theme.colors.darkblue : 'none')};
 `;
 
 const Checkbox = styled.input.attrs({ type: "checkbox" })`
@@ -26,7 +26,7 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
 
 const Icon = styled.svg`
   fill: none;
-  stroke: #f5f8fa;
+  stroke: ${props => props.theme.colors.light};
   stroke-width: 3px;
 `
 
@@ -60,7 +60,7 @@ const CustomCheckbox = ({ id, checked, subtask }) => {
       });
       const { tasks, totalCounts, count } = result.data;
       dispatch({
-        type: "UPDATE_TOTAL",
+        type: "UPDATE_TODO",
         current: {
           count,
         },
@@ -101,4 +101,4 @@ const CustomCheckbox = ({ id, checked, subtask }) => {
   )
 }
 
-export default React.memo(CustomCheckbox);
+export default CustomCheckbox;

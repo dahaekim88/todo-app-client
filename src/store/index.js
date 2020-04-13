@@ -47,6 +47,7 @@ const reducer = (state, action) => {
         ...state,
         loading: false,
         error: null,
+        pageNum: action.pageNum,
         current: {
           ...state.current,
           page: action.current.page,
@@ -61,15 +62,10 @@ const reducer = (state, action) => {
         loading: false,
         error: null,
         pageNum: action.pageNum,
-        current: {
-          ...state.current,
-          page: action.current.page,
-          queryString: action.current.queryString,
-          count: action.current.count,
-        },
+        current: action.current,
         tasks: action.tasks,
       };
-    case "UPDATE_TOTAL":
+    case "UPDATE_TODO":
       return {
         ...state,
         error: null,

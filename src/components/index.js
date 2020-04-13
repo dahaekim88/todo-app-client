@@ -1,4 +1,4 @@
-import { GlobalStyles } from "./styled";
+import { theme, GlobalStyles } from "./styled";
 import Sidebar from "./Layout/Sidebar";
 import Main from "./Layout/Main";
 import SearchForm from "./SearchForm";
@@ -9,6 +9,7 @@ import TodoList from "./TodoList";
 import Pagination from "./Pagination";
 
 export {
+  theme,
   GlobalStyles,
   Sidebar,
   Main,

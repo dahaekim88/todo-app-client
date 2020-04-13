@@ -1,6 +1,8 @@
-import React, { useEffect, useContext, useMemo } from "react";
+import React, { useEffect, useContext } from "react";
 import axios from "axios";
+import { ThemeProvider } from "styled-components";
 import {
+  theme,
   GlobalStyles,
   Sidebar,
   Main,
@@ -18,25 +20,26 @@ const App = () => {
   const globalState = useContext(store);
   const { state, dispatch } = globalState;
   const { pageNum } = state;
-  const { count, page, queryString } = state.current;
-  const pageCount = useMemo(() => Math.ceil(count / 5), [count]);
+  const { page, queryString } = state.current;
 
   useEffect(() => {
-    updateCurrentPage(page);
+    updateCurrentPage(page, pageNum);
   }, [pageNum]);
 
-  const fetchTotal = async () => {
+  const fetchTotal = async (pageNum) => {
     dispatch({ type: "LOADING" });
     try {
       const result = await axios.get(`${API_URL}/tasks/${pageNum}`);
+      const { count, totalCounts, tasks } = result.data;
       dispatch({
         type: "UPDATE_ALL",
+        pageNum,
         current: {
           page: "all",
-          count: result.data.count,
+          count,
         },
-        totalCounts: result.data.totalCounts,
-        tasks: result.data.tasks,
+        totalCounts,
+        tasks,
       });
     } catch (err) {
       dispatch({ type: "ERROR", error: err });
@@ -63,7 +66,7 @@ const App = () => {
     }
   }
 
-  const updateCurrentPage = async (page) => {
+  const updateCurrentPage = async (page, pageNum) => {
     switch (page) {
       case "search":
         fetchCurrent(page);
@@ -72,12 +75,12 @@ const App = () => {
         fetchCurrent(page);
         break;
       default:
-        fetchTotal();
+        fetchTotal(pageNum);
     }
   }
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Sidebar>
         <SearchForm
@@ -91,11 +94,9 @@ const App = () => {
       <Main>
         <AddForm />
         <TodoList />
-        <Pagination
-          pageCount={pageCount}
-        />
+        <Pagination />
       </Main>
-    </>
+    </ThemeProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import styled from "styled-components";
 import { store } from "../store";
 
@@ -7,7 +7,7 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: #f5f8fa;
+  color: ${props => props.theme.colors.light};
   font-size: 20px;
   padding: 4px 0;
 `;
@@ -20,7 +20,7 @@ const PageNum = styled.div`
   }
   &:not(.active) {
     &:hover {
-      color: #48aff0;
+      color: ${props => props.theme.colors.blue};
     }
   }
 `;
@@ -30,11 +30,11 @@ const AngleDoubleLeft = styled.div`
   &:before {
     font-family: "Font Awesome 5 Free";
     content: "\f359";
-    color: #f5f8fa;
+    color: ${props => props.theme.colors.light};
   }
   &:hover {
     &:before {
-      color: #48aff0;
+      color: ${props => props.theme.colors.blue};
     }
   }
 `;
@@ -44,23 +44,25 @@ const AngleDoubleRight = styled.div`
   &:before {
     font-family: "Font Awesome 5 Free";
     content: "\f35a";
-    color: #f5f8fa;
+    color: ${props => props.theme.colors.light};
   }
   &:hover {
     &:before {
-      color: #48aff0;
+      color: ${props => props.theme.colors.blue};
     }
   }
 `;
 
-const Pagination = ({ pageCount }) => {
+const Pagination = () => {
   const globalState = useContext(store);
   const { state, dispatch } = globalState;
-  const { current } = state;
+  const { pageNum } = state;
+  const { count } = state.current;
+  const pageCount = useMemo(() => Math.ceil(count / 5), [count]);
 
   return (
     <Container>
-      {!!current.count
+      {!!count
         ?
         <>
           <AngleDoubleLeft
@@ -75,7 +77,7 @@ const Pagination = ({ pageCount }) => {
               .map((v, i) => (
                 <PageNum
                   key={i}
-                  className={state.pageNum === i + 1 ? "active" : ""}
+                  className={pageNum === i + 1 ? "active" : ""}
                   onClick={() => dispatch({
                     type: "PAGINATION",
                     pageNum: i + 1,

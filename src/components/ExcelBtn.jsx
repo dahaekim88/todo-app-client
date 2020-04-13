@@ -32,7 +32,7 @@ const ExcelBtn = ({ fetchTotal }) => {
 
   const exportToExcel = async () => {
     emptySearchInput();
-    fetchTotal();
+    fetchTotal(1);
     const result = await axios.get(`${API_URL}/tasks`);
     const data = result.data.tasks.map((task, index) => {
       task.id = index + 1;
@@ -55,6 +55,7 @@ const ExcelBtn = ({ fetchTotal }) => {
     const { count, totalCounts, tasks } = result.data;
     dispatch({
       type: "UPDATE_ALL",
+      pageNum: 1,
       current: {
         page: "all",
         count,
@@ -85,4 +86,4 @@ const ExcelBtn = ({ fetchTotal }) => {
   )
 }
 
-export default React.memo(ExcelBtn);
+export default ExcelBtn;

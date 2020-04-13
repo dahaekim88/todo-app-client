@@ -1,9 +1,21 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-const dark = "#30404d";
-const darker = "#293742";
-const light = "#f5f8fa";
-const error = "#f5498b";
+export const theme = {
+  colors: {
+    dark: "#394b59",
+    darker: "#30404d",
+    darkest: "#293742",
+    grey: "#a7b6c2",
+    light: "#f5f8fa",
+    blue: "#48aff0",
+    darkblue: "#137cbd",
+    green: "#3dcc91",
+    purple: "#c274c2",
+    error: "#f5498b",
+    shadowBlue: "0 0 0 1px #137cbd, 0 0 0 1px #137cbd, 0 0 0 3px rgba(19,124,189,.3)",
+    shadowError: "0 0 0 1px #f5498b, 0 0 0 1px #f5498b, 0 0 0 3px rgba(194,68,117,.3)",
+  },
+}
 
 export const GlobalStyles = createGlobalStyle`
   * { 
@@ -13,8 +25,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background-color: ${dark};
-    color: ${light};
+    background-color: ${theme.colors.darker};
+    color: ${theme.colors.light};
   }
 
   div#root {
@@ -24,8 +36,8 @@ export const GlobalStyles = createGlobalStyle`
 
   input[type=text], input[type=search] {
     display: inline-block;
-    background: ${darker};
-    color: ${light};
+    background: ${theme.colors.darkest};
+    color: ${theme.colors.light};
     font-size: 1em;
     outline: none;
     border: none;
@@ -49,7 +61,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .bp3-dark {
-    background-color: ${darker};
+    background-color: ${theme.colors.darkest};
   }
 
   .excel-btn {
@@ -58,9 +70,9 @@ export const GlobalStyles = createGlobalStyle`
     padding: 4% 0;
     text-align: center;
     cursor: pointer;
-    background-color: #293742;
+    background-color: ${theme.colors.darkest};
     border-radius: 6px;
-    color: #a7b6c2;
+    color: ${theme.colors.grey};
     &:hover {
       transform: scale(1.05);
       transition: transform 250ms ease-in-out;
@@ -70,7 +82,7 @@ export const GlobalStyles = createGlobalStyle`
       content: "\f1c3";
       font-size: 1em;
       margin-right: 4%;
-      color: #3dcc91;
+      color: ${theme.colors.green};
     }
     @media screen and (max-width: 600px) {
       transform: scale(1);
@@ -89,7 +101,7 @@ export const GlobalStyles = createGlobalStyle`
 export const Message = styled.div`
   width: 100%;
   margin: 1% 0 0 2%;
-  color: ${error};
+  color: ${theme.colors.error};
   font-size: 1em;
   @media screen and (max-width: 600px) {
     font-size: 0.8em;

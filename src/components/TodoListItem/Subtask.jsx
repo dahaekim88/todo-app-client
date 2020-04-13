@@ -19,16 +19,16 @@ const SubtaskInput = styled.input.attrs({
   type: "text",
 })`
   font-size: 0.8em !important;
-  color: #a7b6c2;
+  color: ${props => props.theme.colors.grey};
   border: none;
   outline: none;
-  border-bottom: 1px solid #137cbd !important;
+  border-bottom: ${props => `1px solid ${props.theme.colors.darkblue} !important`};
   display: block;
   margin-left: 1%;
   padding: 1%;
   width: 100px;
   &.error {
-    border-bottom: 1px solid #f5498b !important;
+    border-bottom: ${props => `1px solid ${props.theme.colors.error} !important`};
   }
 `;
 
@@ -36,8 +36,8 @@ const SubtaskBtn = styled.input.attrs({
   type: "button",
 })`
   margin-left: 1%;
-  color: #c274c2;
-  background-color: rgba(16,22,26,.3);
+  color: ${props => props.theme.colors.purple};
+  background-color: ${props => props.theme.colors.darker};
   padding: 1%;
   outline: none;
   border: none;
@@ -118,9 +118,9 @@ const Subtask = ({ id, subtask }) => {
         value={button}
         onClick={toggleEditing}
       />
-      { !!error ? <Message className="font-small">{error}</Message> : null }
+      {error && <Message className="font-small">{error}</Message>}
     </Container>
   )
 }
 
-export default React.memo(Subtask);
+export default Subtask;

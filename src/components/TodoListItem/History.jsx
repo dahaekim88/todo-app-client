@@ -31,7 +31,7 @@ const Column = styled.div`
 
 const DateContainer = styled.div`
   font-size: 0.8em;
-  background-color: #293742;
+  background-color: ${props => props.theme.colors.darkest};
 
   @media screen and (max-width: 600px) {
     font-size: 0.5em;
@@ -57,7 +57,7 @@ const Input = styled.input.attrs({
   padding: 1% 2%;
 `;
 
-const History = ({ id, created_date, updated_date, due_date }) => {
+const History = ({ id, createdDate, updatedDate, dueDate }) => {
   const globalState = useContext(store);
   const { state, dispatch } = globalState;
   const { pageNum } = state;
@@ -74,7 +74,7 @@ const History = ({ id, created_date, updated_date, due_date }) => {
       });
       const { tasks, totalCounts, count } = result.data;
       dispatch({
-        type: "UPDATE_TOTAL",
+        type: "UPDATE_TODO",
         current: {
           count,
         },
@@ -90,22 +90,22 @@ const History = ({ id, created_date, updated_date, due_date }) => {
     <Column>
       <DateContainer>작성일:
         <Input
-          defaultValue={created_date}
+          value={createdDate}
           disabled
         />
       </DateContainer>
       <DateContainer>수정일:
         <Input
-          defaultValue={updated_date}
+          value={updatedDate}
           disabled
         />
       </DateContainer>
       <DateContainer className="bp3-dark">완료일: 
-        {due_date
+        {dueDate
           ?
           <DateInput 
             {...jsDateFormatter}
-            defaultValue={new Date(due_date)}
+            value={new Date(dueDate)}
             onChange={(e) => updateDuedate(jsDateFormatter.formatDate(e))}
           />
           :
@@ -119,4 +119,4 @@ const History = ({ id, created_date, updated_date, due_date }) => {
   )
 }
 
-export default React.memo(History);
+export default History;

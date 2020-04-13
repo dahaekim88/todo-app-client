@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { store } from "../store";
@@ -14,13 +14,11 @@ const StyledForm = styled.form`
 const StyledInput = styled.input.attrs({ type: "search" })`
   width: 100%;
   position: relative;
-  background-color: rgba(16,22,26,.3) !important;
+  background-color: ${props => props.theme.colors.darker};
   border-radius: 6px;
   padding: 2%;
   &:focus {
-    box-shadow: 0 0 0 1px #137cbd, 
-      0 0 0 1px #137cbd, 
-      0 0 0 3px rgba(19,124,189,.3);
+    box-shadow: ${props => props.theme.colors.shadowBlue};
   }
 `;
 
@@ -51,20 +49,15 @@ const SearchForm = ({ fetchTotal }) => {
     }
   }
 
-  const isFirstRun = useRef(true);
   useEffect(
     () => {
-      if (isFirstRun.current) {
-        isFirstRun.current = false;
-      } else {
         if (debouncedSearchQuery) {
           searchTodo(debouncedSearchQuery);
         } else {
           if (page === "search") {
-            fetchTotal();
+            fetchTotal(1);
           }
         }
-      }
     },
     [debouncedSearchQuery]
   );
@@ -87,4 +80,4 @@ const SearchForm = ({ fetchTotal }) => {
   )
 }
 
-export default React.memo(SearchForm);
+export default SearchForm;

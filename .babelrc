@@ -9,5 +9,6 @@
       }
     ],
     "@babel/preset-react"
-  ]
+  ],
+  "plugins": ["babel-plugin-styled-components"] // styled-components 컴포넌트명이 클래스명으로 치환
 }
